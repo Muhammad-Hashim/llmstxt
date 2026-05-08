@@ -1,0 +1,49 @@
+{
+  "name": "@llmstxt/middleware",
+  "version": "0.1.0",
+  "description": "Next.js middleware that serves Markdown when requests send Accept: text/markdown.",
+  "license": "MIT",
+  "author": "Recordly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Muhammad-Hashim/llmstxt.git",
+    "directory": "packages/middleware"
+  },
+  "homepage": "https://github.com/Muhammad-Hashim/llmstxt#readme",
+  "keywords": [
+    "llmstxt",
+    "markdown",
+    "markdown for agents",
+    "content negotiation",
+    "accept header",
+    "nextjs",
+    "middleware",
+    "ai",
+    "llm",
+    "seo"
+  ],
+  "type": "commonjs",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "readme": "README.md",
+  "files": [
+    "lib/**/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "peerDependencies": {
+    "next": ">=13.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "node ../../scripts/rmrf.js lib"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

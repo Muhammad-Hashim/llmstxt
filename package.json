@@ -1,7 +1,7 @@
 {
   "name": "@llmstxt/monorepo",
   "private": true,
-  "description": "Monorepo for @llmstxt packages.",
+  "description": "Monorepo for @llmstxt (llms.txt, llms-full.txt, and Markdown for agents).",
   "license": "MIT",
   "workspaces": [
     "packages/*"
