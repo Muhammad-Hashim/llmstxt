@@ -1,0 +1,28 @@
+{
+  "name": "@llmstxt/core",
+  "version": "0.1.0",
+  "description": "Framework-agnostic scanner & generator for llms.txt and llms-full.txt.",
+  "license": "MIT",
+  "author": "Recordly",
+  "type": "commonjs",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "node ../../scripts/rmrf.js lib",
+    "test": "jest -c ../../jest.config.js --selectProjects core"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
