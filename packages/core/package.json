@@ -4,9 +4,27 @@
   "description": "Framework-agnostic scanner & generator for llms.txt and llms-full.txt.",
   "license": "MIT",
   "author": "Recordly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Muhammad-Hashim/llmstxt.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/Muhammad-Hashim/llmstxt#readme",
+  "keywords": [
+    "llms",
+    "llms.txt",
+    "llms-full.txt",
+    "llmstxt",
+    "ai",
+    "llm",
+    "seo",
+    "nextjs",
+    "sitemap"
+  ],
   "type": "commonjs",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "readme": "README.md",
   "files": [
     "lib/**/*"
   ],
@@ -25,4 +43,3 @@
     "node": ">=18.0.0"
   }
 }
-

@@ -1,12 +1,31 @@
-# @llmstxt — LLM Discoverability for Your Site
+# @llmstxt — Generate `llms.txt` and `llms-full.txt` for your website
 
-Generate `llms.txt` and `llms-full.txt` automatically from your app's pages.
-This repo contains two packages:
+Generate `llms.txt` (a table of contents) and `llms-full.txt` (full content) from your app’s pages so LLMs can quickly understand what your site covers.
 
-| Package | Description |
+- Standard: [llmstxt.org](https://llmstxt.org)
+- Works with: Next.js App Router (built-in), plus any Node.js framework via `@llmstxt/core`
+
+## Packages
+
+| Package | What it does |
 |---|---|
-| [`@llmstxt/core`](./packages/core) | Framework-agnostic scanner & generator |
-| [`@llmstxt/next`](./packages/next) | Next.js App Router route handlers |
+| [`@llmstxt/core`](./packages/core) | Scan your `app/` directory and generate `llms.txt` + `llms-full.txt` |
+| [`@llmstxt/next`](./packages/next) | Next.js App Router route handlers for `/llms.txt` and `/llms-full.txt` |
+
+## Keywords (SEO)
+
+llms.txt, llms-full.txt, llmstxt, Next.js, App Router, AI, LLM, SEO, website indexing, documentation, crawlable content, sitemap alternative
+
+## Table of Contents
+
+- [Quick Start — Next.js (App Router)](#quick-start--nextjs-app-router)
+- [Quick Start — Other Frameworks](#quick-start--other-frameworks-express-hono-bun-etc)
+- [How It Works](#how-it-works)
+- [API Reference (`@llmstxt/core`)](#api-reference-llmstxtcore)
+- [Environment Variables (`@llmstxt/next`)](#environment-variables-llmstxtnext)
+- [Tips for Better Descriptions](#tips-for-better-descriptions)
+- [Development (this repo)](#development-this-repo)
+- [License](#license)
 
 ---
 
@@ -133,6 +152,11 @@ Example output:
 ### `llms-full.txt` (Full content)
 Same scan, but also fetches and converts each page to Markdown (or plain text by default). This produces one big file containing your site’s content for ingestion.
 
+## Why this helps SEO (and AI discoverability)
+
+Search engines don’t directly “rank” `llms.txt`, but having clean, crawlable pages with accurate titles/descriptions helps both humans and models.
+These files are primarily for **LLM discoverability**: they provide a structured summary and/or full content in a format that’s easy to ingest.
+
 ---
 
 ## API Reference (`@llmstxt/core`)
@@ -222,4 +246,3 @@ npm test
 ## License
 
 MIT
-
