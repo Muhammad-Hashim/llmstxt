@@ -46,3 +46,12 @@ export const GET = createLlmsTxtHandler({
 })
 ```
 
+## Used with `@llmstxt/middleware` (optional)
+
+If you also want every page to respond with Markdown on `Accept: text/markdown`, add:
+
+```ts
+// middleware.ts
+export { middleware, config } from '@llmstxt/middleware'
+```
+

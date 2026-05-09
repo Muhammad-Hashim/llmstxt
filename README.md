@@ -1,9 +1,9 @@
-# @llmstxt — Generate `llms.txt` and `llms-full.txt` for your website
+# @llmstxt — `llms.txt`, `llms-full.txt`, and Markdown for agents
 
-Generate `llms.txt` (a table of contents) and `llms-full.txt` (full content) from your app’s pages so LLMs can quickly understand what your site covers.
+Generate `llms.txt` (table of contents) and `llms-full.txt` (full content) from your app’s pages, and optionally serve **any page as Markdown** via content negotiation (`Accept: text/markdown`).
 
 - Standard: [llmstxt.org](https://llmstxt.org)
-- Works with: Next.js App Router (built-in), plus any Node.js framework via `@llmstxt/core`
+- Works with: Next.js App Router (`@llmstxt/next`), any Node.js framework (`@llmstxt/core`), and Next.js middleware (`@llmstxt/middleware`)
 
 ## Packages
 
@@ -11,14 +11,16 @@ Generate `llms.txt` (a table of contents) and `llms-full.txt` (full content) fro
 |---|---|
 | [`@llmstxt/core`](./packages/core) | Scan your `app/` directory and generate `llms.txt` + `llms-full.txt` |
 | [`@llmstxt/next`](./packages/next) | Next.js App Router route handlers for `/llms.txt` and `/llms-full.txt` |
+| [`@llmstxt/middleware`](./packages/middleware) | Next.js middleware: any page responds as Markdown on `Accept: text/markdown` |
 
 ## Keywords (SEO)
 
-llms.txt, llms-full.txt, llmstxt, Next.js, App Router, AI, LLM, SEO, website indexing, documentation, crawlable content, sitemap alternative
+llms.txt, llms-full.txt, llmstxt, markdown for agents, content negotiation, Next.js, middleware, App Router, AI, LLM, SEO, website indexing, documentation, crawlable content, sitemap alternative
 
 ## Table of Contents
 
 - [Quick Start — Next.js (App Router)](#quick-start--nextjs-app-router)
+- [Quick Start — Markdown for Agents (Next.js Middleware)](#quick-start--markdown-for-agents-nextjs-middleware)
 - [Quick Start — Other Frameworks](#quick-start--other-frameworks-express-hono-bun-etc)
 - [How It Works](#how-it-works)
 - [API Reference (`@llmstxt/core`)](#api-reference-llmstxtcore)
@@ -94,6 +96,39 @@ export const GET = createLlmsFullTxtHandler({
 
 ---
 
+## Quick Start — Markdown for Agents (Next.js Middleware)
+
+Serve the Markdown version of **any page** when a client sends `Accept: text/markdown`.
+
+### Install
+
+```bash
+npm install @llmstxt/middleware
+```
+
+### Add middleware
+
+```ts
+// middleware.ts (project root)
+export { middleware, config } from '@llmstxt/middleware'
+```
+
+This returns:
+- `Content-Type: text/markdown; charset=utf-8`
+- `Vary: Accept` (so CDNs cache HTML and Markdown separately)
+- `x-markdown-tokens` (token estimate for context sizing)
+- `Content-Signal` (content usage preferences)
+
+Test it:
+
+```bash
+curl https://yoursite.com/blog/my-post -H "Accept: text/markdown"
+```
+
+For best Markdown quality in production, plug in `@mozilla/readability` + `turndown` (see `packages/middleware/README.md`).
+
+---
+
 ## Quick Start — Other Frameworks (Express, Hono, Bun, etc.)
 
 ```bash
@@ -151,6 +186,9 @@ Example output:
 
 ### `llms-full.txt` (Full content)
 Same scan, but also fetches and converts each page to Markdown (or plain text by default). This produces one big file containing your site’s content for ingestion.
+
+### `Accept: text/markdown` (Markdown for agents)
+`@llmstxt/middleware` adds content negotiation to your Next.js app: when a client requests any URL with `Accept: text/markdown`, it re-fetches that page as HTML, converts it to Markdown, and returns it with `Content-Type: text/markdown`, `Vary: Accept`, and `x-markdown-tokens`.
 
 ## Why this helps SEO (and AI discoverability)
 
