@@ -2,56 +2,124 @@
 
 Next.js App Router route handlers for `llms.txt` and `llms-full.txt` (see [llmstxt.org](https://llmstxt.org)).
 
+Also see [`@llmstxt/core`](https://www.npmjs.com/package/@llmstxt/core) (framework-agnostic generator) and [`@llmstxt/middleware`](https://www.npmjs.com/package/@llmstxt/middleware) (Markdown content negotiation).
+
 ## Install
 
 ```bash
 npm install @llmstxt/next
 ```
 
-## Setup
+**Peer dependency**: `next >= 13.0.0`
 
-Create:
+## Environment variables
 
+Set one of these before running or deploying:
+
+| Variable | When to use |
+| --- | --- |
+| `NEXT_PUBLIC_APP_URL` | **Recommended.** Set explicitly for local dev and production |
+| `VERCEL_URL` | Vercel only — injected automatically by the platform |
+
+Add to `.env.local` for local development:
+
+```text
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
-src/app/llms.txt/route.ts
-src/app/llms-full.txt/route.ts
+
+> When `NODE_ENV=development` and neither variable is set, the package falls back to `http://localhost:3000`. Always set `NEXT_PUBLIC_APP_URL` explicitly for predictable results.
+
+## Setup — zero-config (simplest)
+
+Create two route files:
+
+```text
+src/app/
+  llms.txt/
+    route.ts
+  llms-full.txt/
+    route.ts
 ```
 
-`src/app/llms.txt/route.ts`:
+**`src/app/llms.txt/route.ts`**:
+
 ```ts
 export { GET } from '@llmstxt/next'
 ```
 
-`src/app/llms-full.txt/route.ts`:
+**`src/app/llms-full.txt/route.ts`**:
+
 ```ts
 import { createLlmsFullTxtHandler } from '@llmstxt/next'
 export const GET = createLlmsFullTxtHandler()
 ```
 
-## Required environment variable
+Then visit `/llms.txt` and `/llms-full.txt`.
 
-Set one of:
-- `NEXT_PUBLIC_APP_URL` (recommended)
-- `VERCEL_URL` (usually set automatically on Vercel)
+## Setup — with options
 
-## Options
+**`src/app/llms.txt/route.ts`**:
 
 ```ts
 import { createLlmsTxtHandler } from '@llmstxt/next'
 
 export const GET = createLlmsTxtHandler({
   title: 'My App',
-  summary: 'What my app does.',
-  exclude: ['api', '(auth)', '_*'],
+  summary: 'A tool that helps teams collaborate and ship faster.',
+  exclude: ['api', '(auth)', '_*', 'admin'],
+  maxDescriptionLength: 120,
 })
 ```
 
-## Used with `@llmstxt/middleware` (optional)
-
-If you also want every page to respond with Markdown on `Accept: text/markdown`, add:
+**`src/app/llms-full.txt/route.ts`**:
 
 ```ts
-// middleware.ts
+import { createLlmsFullTxtHandler } from '@llmstxt/next'
+
+export const GET = createLlmsFullTxtHandler({
+  fetchTimeoutMs: 8000,
+  htmlToMarkdown: async (html, url) => {
+    const TurndownService = (await import('turndown')).default
+    const td = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' })
+    return td.turndown(html)
+  },
+})
+```
+
+## Options — `createLlmsTxtHandler`
+
+All options are optional. `appDir` and `baseUrl` are resolved automatically from the environment.
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `string` | `'Documentation'` | H1 heading in the output |
+| `summary` | `string` | — | One-liner summary below the title |
+| `exclude` | `string[]` | `['api','_*','(auth)','(private)']` | Route segments to skip. Supports `*` wildcards |
+| `extractDescription` | `(input) => string \| undefined` | First `//` comment or `metadata.description` | Custom description extractor |
+| `maxDescriptionLength` | `number` | `150` | Truncate descriptions longer than N characters |
+
+## Options — `createLlmsFullTxtHandler`
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `fetchTimeoutMs` | `number` | `5000` | Per-page fetch timeout in ms |
+| `htmlToMarkdown` | `(html: string, url: string) => Promise<string> \| string` | Built-in HTML stripper | Custom HTML → Markdown converter |
+| `exclude` | `string[]` | `['api','_*','(auth)','(private)']` | Route segments to skip |
+| `extractDescription` | `(input) => string \| undefined` | First `//` comment or `metadata.description` | Custom description extractor |
+| `maxDescriptionLength` | `number` | `150` | Truncate descriptions longer than N characters |
+
+## Caching
+
+Both handlers set `Cache-Control: public, max-age=0, s-maxage=3600, stale-while-revalidate=86400` by default, giving you CDN-level caching with fast revalidation.
+
+## With `@llmstxt/middleware` (optional)
+
+To serve any page as Markdown on `Accept: text/markdown`, add a middleware file:
+
+```ts
+// middleware.ts (project root)
 export { middleware, config } from '@llmstxt/middleware'
 ```
+
+See [`@llmstxt/middleware`](https://www.npmjs.com/package/@llmstxt/middleware) for full options.
 
