@@ -31,6 +31,18 @@ function stripHtmlToText(html: string): string {
     .trim();
 }
 
+function extractHtmlTitle(html: string): string {
+  const m = /<title[^>]*>([^<]+)<\/title>/i.exec(html);
+  if (!m) return '';
+  return m[1]
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+}
+
 async function fetchWithTimeout(
   url: string,
   timeoutMs: number
@@ -116,13 +128,17 @@ export async function generateLlmsFullTxt(
   for (const page of pages) {
     lines.push(`## ${page.title}`);
     lines.push('');
-    lines.push(page.url);
-    lines.push('');
+    lines.push(`title: ${page.title}`);
+    lines.push(`url: ${page.url}`);
+    if (page.description) lines.push(`description: ${page.description}`);
     try {
       const html = await fetchWithTimeout(page.url, fetchTimeoutMs);
+      const htmlTitle = extractHtmlTitle(html);
+      if (htmlTitle) lines.push(`page title: ${htmlTitle}`);
+      lines.push('');
       const markdown =
         typeof options.htmlToMarkdown === 'function'
-          ? await options.htmlToMarkdown(html)
+          ? await options.htmlToMarkdown(html, page.url)
           : stripHtmlToText(html);
       lines.push(markdown.trim());
     } catch (err) {
