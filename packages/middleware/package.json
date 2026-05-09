@@ -20,7 +20,9 @@
     "middleware",
     "ai",
     "llm",
-    "seo"
+    "seo",
+    "next-middleware",
+    "content-signal"
   ],
   "type": "commonjs",
   "main": "./lib/index.js",
@@ -40,10 +42,10 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
     "clean": "node ../../scripts/rmrf.js lib"
   },
   "engines": {
     "node": ">=18.0.0"
   }
 }
-

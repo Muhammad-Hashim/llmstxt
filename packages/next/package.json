@@ -18,8 +18,10 @@
     "ai",
     "llm",
     "seo",
+    "documentation",
     "nextjs",
-    "app-router"
+    "app-router",
+    "route-handler"
   ],
   "type": "commonjs",
   "main": "./lib/index.js",
@@ -42,9 +44,13 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
     "clean": "node ../../scripts/rmrf.js lib"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.130"
   }
 }
