@@ -48,7 +48,20 @@ export type MarkdownMiddlewareOptions = {
 // Built-in HTML → Markdown converter (dependency-free)
 // ---------------------------------------------------------------------------
 
-function builtinHtmlToMarkdown(html: string): string {
+function resolveHref(href: string, pageUrl: string): string {
+  if (!href) return href;
+  // Already absolute
+  if (/^https?:\/\//i.test(href)) return href;
+  // Skip anchors, mailto, tel, javascript
+  if (/^(#|mailto:|tel:|javascript:)/i.test(href)) return href;
+  try {
+    return new URL(href, pageUrl).toString();
+  } catch {
+    return href;
+  }
+}
+
+function builtinHtmlToMarkdown(html: string, pageUrl = ''): string {
   return (
     html
       // Remove noisy sections
@@ -82,12 +95,13 @@ function builtinHtmlToMarkdown(html: string): string {
           `\`${decodeEntities(stripTags(code))}\``
       )
 
-      // Links
+      // Links — resolve relative URLs to absolute using the page URL
       .replace(
         /<a\b[^>]*href=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi,
         (_match: string, href: string, text: string) => {
           const label = stripTags(text).trim();
-          return label ? `[${label}](${href})` : href;
+          const abs = pageUrl ? resolveHref(href, pageUrl) : href;
+          return label ? `[${label}](${abs})` : abs;
         }
       )
 
