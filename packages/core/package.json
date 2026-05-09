@@ -18,6 +18,7 @@
     "ai",
     "llm",
     "seo",
+    "documentation",
     "nextjs",
     "sitemap"
   ],
@@ -36,6 +37,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
     "clean": "node ../../scripts/rmrf.js lib",
     "test": "jest -c ../../jest.config.js --selectProjects core"
   },

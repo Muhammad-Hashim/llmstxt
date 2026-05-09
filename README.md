@@ -61,8 +61,10 @@ export const GET = createLlmsFullTxtHandler()
 ```
 
 Set one of:
-- `NEXT_PUBLIC_APP_URL` (recommended), or
-- `VERCEL_URL` (usually already set on Vercel).
+- `NEXT_PUBLIC_APP_URL` (recommended)
+- `VERCEL_URL` (usually already set on Vercel)
+
+> Tip: Set `NEXT_PUBLIC_APP_URL` explicitly in local development and production. `@llmstxt/next` will only fall back to `http://localhost:3000` when `NODE_ENV=development`.
 
 Visit:
 - `/llms.txt`
@@ -237,8 +239,30 @@ Generates `llms-full.txt` as a string (fetches pages and converts HTML→text/Ma
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_APP_URL` | Your production base URL |
-| `VERCEL_URL` | Automatically set by Vercel |
+| `NEXT_PUBLIC_APP_URL` | Your public app root URL, e.g. `https://example.com` — recommended for production and local dev |
+| `VERCEL_URL` | Automatically set by Vercel; used as a fallback if `NEXT_PUBLIC_APP_URL` is missing |
+
+> Note: When `NODE_ENV=development`, `@llmstxt/next` will default to `http://localhost:3000` if neither variable is set. For predictable results, always set `NEXT_PUBLIC_APP_URL` in `.env.local` or your deployment environment.
+
+---
+
+## Packages included
+
+This repository publishes three npm packages:
+
+- `@llmstxt/core` — framework-agnostic generator for `llms.txt` and `llms-full.txt`
+- `@llmstxt/next` — Next.js App Router route handlers for `llms.txt` and `llms-full.txt`
+- `@llmstxt/middleware` — Next.js middleware that serves Markdown on `Accept: text/markdown`
+
+Install only the packages you need:
+
+```bash
+npm install @llmstxt/core
+npm install @llmstxt/next
+npm install @llmstxt/middleware
+```
+
+See each package README for the full option reference.
 
 ---
 

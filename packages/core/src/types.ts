@@ -27,5 +27,5 @@ export type GenerateLlmsTxtOptions = LlmsTxtOptions & {
 
 export type GenerateLlmsFullTxtOptions = LlmsTxtOptions & {
   fetchTimeoutMs?: number;
-  htmlToMarkdown?: (html: string) => Promise<string> | string;
+  htmlToMarkdown?: (html: string, url: string) => Promise<string> | string;
 };

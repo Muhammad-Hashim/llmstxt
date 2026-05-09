@@ -16,6 +16,12 @@ export function resolveBaseUrlFromEnv(): string {
   const vercelUrl = process.env.VERCEL_URL;
   if (vercelUrl)
     return vercelUrl.startsWith('http') ? vercelUrl : `https://${vercelUrl}`;
+  
+  // Fallback to localhost in development
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000';
+  }
+  
   throw new Error(
     'Missing base URL. Set NEXT_PUBLIC_APP_URL (recommended) or VERCEL_URL.'
   );

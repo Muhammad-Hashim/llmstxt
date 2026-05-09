@@ -1,5 +1,4 @@
 import path from 'path';
-import { NextResponse } from 'next/server';
 import { generateLlmsFullTxt } from '@llmstxt/core';
 import type { GenerateLlmsFullTxtOptions } from '@llmstxt/core';
 import { resolveBaseUrlFromEnv, resolveNextAppDir } from './shared';
@@ -19,7 +18,7 @@ export function createLlmsFullTxtHandler(
       ...overrides,
     });
 
-    return new NextResponse(txt, {
+    return new Response(txt, {
       status: 200,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
