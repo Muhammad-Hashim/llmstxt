@@ -41,11 +41,15 @@ src/app/
     route.ts
 ```
 
+For `llms.txt`:
+
 **`src/app/llms.txt/route.ts`**:
 
 ```ts
 export { GET } from '@llmstxt/next'
 ```
+
+For `llms-full.txt`:
 
 **`src/app/llms-full.txt/route.ts`**:
 
@@ -122,4 +126,3 @@ export { middleware, config } from '@llmstxt/middleware'
 ```
 
 See [`@llmstxt/middleware`](https://www.npmjs.com/package/@llmstxt/middleware) for full options.
-
