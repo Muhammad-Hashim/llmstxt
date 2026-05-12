@@ -14,9 +14,6 @@ Generate `llms.txt` (table of contents) and `llms-full.txt` (full content) from 
 | [`@llmtxt/middleware`](./packages/middleware) | Next.js middleware: any page responds as Markdown on `Accept: text/markdown` |
 | [`@llmtxt/react`](./packages/react)|(It’s not working right now. It’s still in the testing phase.)   Build-time helpers for React SPAs: generate `llms.txt` + `llms-full.txt` from a route list |
 
-## Keywords (SEO)
-
-llms.txt, llms-full.txt, llmtxt, markdown for agents, content negotiation, Next.js, middleware, App Router, AI, LLM, SEO, website indexing, documentation, crawlable content, sitemap alternative
 
 ## Table of Contents
 
