@@ -1,6 +1,6 @@
 {
   "name": "@llmtxt/next",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Next.js App Router route handlers for llms.txt and llms-full.txt.",
   "license": "MIT",
   "author": "Recordly",
