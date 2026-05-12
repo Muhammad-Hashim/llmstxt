@@ -12,6 +12,7 @@ Generate `llms.txt` (table of contents) and `llms-full.txt` (full content) from 
 | [`@llmtxt/core`](./packages/core) | Scan your `app/` directory and generate `llms.txt` + `llms-full.txt` |
 | [`@llmtxt/next`](./packages/next) | Next.js App Router route handlers for `/llms.txt` and `/llms-full.txt` |
 | [`@llmtxt/middleware`](./packages/middleware) | Next.js middleware: any page responds as Markdown on `Accept: text/markdown` |
+| [`@llmtxt/react`](./packages/react) | Build-time helpers for React SPAs: generate `llms.txt` + `llms-full.txt` from a route list |
 
 ## Keywords (SEO)
 
@@ -21,6 +22,7 @@ llms.txt, llms-full.txt, llmtxt, markdown for agents, content negotiation, Next.
 
 - [Quick Start — Next.js (App Router)](#quick-start--nextjs-app-router)
 - [Quick Start — Markdown for Agents (Next.js Middleware)](#quick-start--markdown-for-agents-nextjs-middleware)
+- [Quick Start — React (Build-time, no backend)](#quick-start--react-build-time-no-backend)
 - [Quick Start — Other Frameworks](#quick-start--other-frameworks-express-hono-bun-etc)
 - [How It Works](#how-it-works)
 - [API Reference (`@llmtxt/core`)](#api-reference-llmtxtcore)
@@ -128,6 +130,49 @@ curl https://yoursite.com/blog/my-post -H "Accept: text/markdown"
 ```
 
 For best Markdown quality in production, plug in `@mozilla/readability` + `turndown` (see `packages/middleware/README.md`).
+
+---
+
+## Quick Start — React (Build-time, no backend)
+
+For React SPAs (Vite/CRA/React Router), generate the files at build time and ship them from `public/`.
+
+```bash
+npm install -D @llmtxt/react
+```
+
+Create a route list:
+
+```ts
+// llmtxt.routes.ts
+import type { LlmtxtRoute } from '@llmtxt/react'
+
+export const routes: LlmtxtRoute[] = [
+  { path: '/', title: 'Home', description: 'What this site is about.' },
+  { path: '/docs', title: 'Docs' },
+]
+```
+
+Generate:
+
+```ts
+// scripts/generate-llms.ts
+import path from 'path'
+import { writeLlmsFiles } from '@llmtxt/react'
+import { routes } from '../llmtxt.routes'
+
+await writeLlmsFiles({
+  routes,
+  baseUrl: process.env.PUBLIC_SITE_URL!, // e.g. https://example.com
+  outDir: path.join(process.cwd(), 'public'),
+})
+```
+
+Run it after deploy (recommended) or against a preview server:
+
+```bash
+PUBLIC_SITE_URL=https://example.com node scripts/generate-llms.ts
+```
 
 ---
 
