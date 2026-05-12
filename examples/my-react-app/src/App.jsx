@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
-import Home from './pages/Home'
-import Docs from './pages/Docs'
-import DocsGettingStarted from './pages/DocsGettingStarted'
-import DocsAPI from './pages/DocsAPI'
-import Features from './pages/Features'
-import Pricing from './pages/Pricing'
-import Blog from './pages/Blog'
-import BlogPost from './pages/BlogPost'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import FAQ from './pages/FAQ'
+import Home from './pages'
+import Docs from './pages/docs'
+import DocsGettingStarted from './pages/docs/getting-started'
+import DocsAPI from './pages/docs/api'
+import Features from './pages/features'
+import Pricing from './pages/pricing'
+import Blog from './pages/blog'
+import BlogPost from './pages/blog/[slug]'
+import About from './pages/about'
+import Contact from './pages/contact'
+import FAQ from './pages/faq'
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
         </main>
 
         <footer className="footer">
-          <p>&copy; 2026 React Demo App · Built with @llmtxt/react</p>
+          <p>&copy; 2026 React Demo App - Built with @llmtxt/react</p>
           <div className="footer-links">
             <Link to="/about">About</Link>
             <Link to="/faq">FAQ</Link>

@@ -43,15 +43,23 @@ function kebabCase(input: string): string {
 }
 
 function titleFromSegments(segments: string[]): string {
-  const last = segments[segments.length - 1] ?? 'Home';
-  const cleaned = last
+  const last = segments[segments.length - 1] ?? 'home';
+  const base =
+    last.toLowerCase() === 'index'
+      ? segments[segments.length - 2] ?? 'home'
+      : last;
+  const cleaned = base
     .replace(/^\[(\.\.\.)?/, '')
     .replace(/\]$/, '')
     .replace(/^\$/, '')
     .replace(/[-_]+/g, ' ')
     .trim();
-  const base = cleaned || 'Home';
-  return base.replace(/\b\w/g, c => c.toUpperCase());
+  const normalized = cleaned || 'home';
+  const special = normalized.toLowerCase();
+  if (special === 'api') return 'API';
+  if (special === 'faq') return 'FAQ';
+  if (special === 'home') return 'Home';
+  return normalized.replace(/\b\w/g, c => c.toUpperCase());
 }
 
 function descriptionFromFileContents(fileContents: string): string | undefined {
@@ -136,4 +144,3 @@ export async function scanPagesDirForRoutes(
   results.sort((a, b) => a.path.localeCompare(b.path));
   return results;
 }
-

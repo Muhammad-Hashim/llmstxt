@@ -64,9 +64,9 @@ This creates:
 
 ## How It Works
 
-1. **Route List** (`llmtxt.routes.js`):
-   - Defines all routes to document
-   - Each route has path, title, and optional description
+1. **Route Discovery**:
+   - Static routes are auto-scanned from `src/pages/**` via `scanPagesDirForRoutes()`
+   - Dynamic routes (e.g. `/blog/:slug`) must be expanded into concrete paths in the generator script
 
 2. **Generation Script** (`scripts/generate-llms.js`):
    - Fetches each route from your running app
@@ -88,7 +88,7 @@ my-react-app/
 │   └── main.jsx         # Entry point
 ├── scripts/
 │   └── generate-llms.js # Documentation generator
-├── llmtxt.routes.js     # Route configuration
+├── src/pages/           # Convention-based pages (used for auto-scan)
 └── package.json         # Dependencies
 ```
 
@@ -98,7 +98,7 @@ my-react-app/
 
 1. Create a component in `src/pages/MyPage.jsx`
 2. Add route to `App.jsx`
-3. Add entry to `llmtxt.routes.js`
+3. Add/update routes in `scripts/generate-llms.js`
 
 ### Customize Documentation Generation
 
