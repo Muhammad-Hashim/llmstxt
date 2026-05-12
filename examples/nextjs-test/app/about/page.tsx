@@ -2,7 +2,7 @@ import { Navigation, Card } from '@/components/widgets';
 
 export const metadata = {
     title: 'About | LLMsText',
-    description: 'About the llmstxt project',
+    description: 'About the llmtxt project',
 };
 
 export default function About() {
@@ -39,15 +39,15 @@ export default function About() {
                         <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Packages</h2>
                         <div className="grid gap-4">
                             <Card
-                                title="@llmstxt/core"
+                                title="@llmtxt/core"
                                 description="Framework-agnostic core package for scanning directories and generating documentation"
                             />
                             <Card
-                                title="@llmstxt/next"
+                                title="@llmtxt/next"
                                 description="Next.js App Router integration with built-in route handlers for /llms.txt and /llms-full.txt"
                             />
                             <Card
-                                title="@llmstxt/middleware"
+                                title="@llmtxt/middleware"
                                 description="Next.js middleware that serves markdown to clients accepting text/markdown content"
                             />
                         </div>

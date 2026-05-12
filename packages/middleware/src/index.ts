@@ -301,7 +301,7 @@ export function createMarkdownMiddleware(
           Cookie: request.headers.get('cookie') ?? '',
           Authorization: request.headers.get('authorization') ?? '',
           'Accept-Language': request.headers.get('accept-language') ?? '',
-          'User-Agent': 'llmstxt-middleware/0.1.0',
+          'User-Agent': 'llmtxt-middleware/0.1.0',
         },
         redirect: 'manual',
       });

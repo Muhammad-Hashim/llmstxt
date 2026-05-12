@@ -1,3 +1,3 @@
-import { createLlmsFullTxtHandler } from '@llmstxt/next';
+import { createLlmsFullTxtHandler } from '@llmtxt/next';
 
 export const GET = createLlmsFullTxtHandler();

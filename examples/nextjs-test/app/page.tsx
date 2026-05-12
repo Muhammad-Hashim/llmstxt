@@ -2,7 +2,7 @@ import { Navigation, Hero, Card } from '@/components/widgets';
 
 export const metadata = {
   title: 'Home | LLMsText Example App',
-  description: 'Testing all @llmstxt packages - core, next, and middleware',
+  description: 'Testing all @llmtxt packages - core, next, and middleware',
 };
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
       />
       <Hero
         title="LLMsText Example App"
-        subtitle="Testing @llmstxt/core, @llmstxt/next, and @llmstxt/middleware packages"
+        subtitle="Testing @llmtxt/core, @llmtxt/next, and @llmtxt/middleware packages"
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="rounded-3xl bg-slate-50 border border-slate-200 p-8 mb-12 text-slate-700 shadow-sm">

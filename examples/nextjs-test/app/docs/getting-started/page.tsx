@@ -2,7 +2,7 @@ import { Card, Navigation, CodeBlock } from '@/components/widgets';
 
 export const metadata = {
     title: 'Getting Started | Docs',
-    description: 'Getting started with llmstxt documentation',
+    description: 'Getting started with llmtxt documentation',
 };
 
 export default function GettingStarted() {
@@ -32,9 +32,9 @@ export default function GettingStarted() {
                     <section>
                         <h2 className="text-2xl font-bold text-gray-900 mb-4">Installation</h2>
                         <p className="text-gray-700 mb-4">
-                            Install the @llmstxt packages using npm:
+                            Install the @llmtxt packages using npm:
                         </p>
-                        <CodeBlock code={`npm install @llmstxt/core @llmstxt/next`} />
+                        <CodeBlock code={`npm install @llmtxt/core @llmtxt/next`} />
                     </section>
 
                     <section>
@@ -44,7 +44,7 @@ export default function GettingStarted() {
                         </p>
                         <CodeBlock
                             code={`// app/llms.txt/route.ts
-import { createLlmsTxtHandler } from '@llmstxt/next';
+import { createLlmsTxtHandler } from '@llmtxt/next';
 
 export const GET = createLlmsTxtHandler();`}
                         />

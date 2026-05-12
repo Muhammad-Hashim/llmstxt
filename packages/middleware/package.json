@@ -1,5 +1,5 @@
 {
-  "name": "@llmstxt/middleware",
+  "name": "@llmtxt/middleware",
   "version": "0.1.0",
   "description": "Next.js middleware that serves Markdown when requests send Accept: text/markdown.",
   "license": "MIT",
@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/Muhammad-Hashim/llmstxt#readme",
   "keywords": [
-    "llmstxt",
+    "llmtxt",
     "markdown",
     "markdown for agents",
     "content negotiation",

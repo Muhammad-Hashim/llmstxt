@@ -2,7 +2,7 @@ import { Navigation, FeatureCard, Hero } from '@/components/widgets';
 
 export const metadata = {
     title: 'Features | LLMsText',
-    description: 'Features of the llmstxt packages',
+    description: 'Features of the llmtxt packages',
 };
 
 export default function Features() {

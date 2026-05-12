@@ -1,5 +1,5 @@
 {
-  "name": "@llmstxt/next",
+  "name": "@llmtxt/next",
   "version": "0.1.0",
   "description": "Next.js App Router route handlers for llms.txt and llms-full.txt.",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "llms",
     "llms.txt",
     "llms-full.txt",
-    "llmstxt",
+    "llmtxt",
     "ai",
     "llm",
     "seo",
@@ -40,7 +40,7 @@
     "next": ">=13.0.0"
   },
   "dependencies": {
-    "@llmstxt/core": "^0.1.0"
+    "@llmtxt/core": "^0.1.0"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

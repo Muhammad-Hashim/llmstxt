@@ -1,6 +1,6 @@
 import path from 'path';
-import { generateLlmsTxt } from '@llmstxt/core';
-import type { GenerateLlmsTxtOptions } from '@llmstxt/core';
+import { generateLlmsTxt } from '@llmtxt/core';
+import type { GenerateLlmsTxtOptions } from '@llmtxt/core';
 import { resolveBaseUrlFromEnv, resolveNextAppDir } from './shared';
 
 export function createLlmsTxtHandler(
