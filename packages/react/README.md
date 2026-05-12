@@ -1,10 +1,8 @@
 # `@llmtxt/react`
 
-Build-time helpers for React SPAs to generate `llms.txt` and `llms-full.txt` **without a backend**.
+Generate `llms.txt` and `llms-full.txt` for React SPAs **without a backend** by writing the files into your `public/` folder at build time.
 
-React apps (Vite/CRA/React Router) don’t have a universal “pages directory” like Next.js App Router, so this package works by taking an **explicit route list** and generating files into your `public/` (or `dist/`) folder during CI/build.
-
----
+React Router/Vite/CRA apps don’t have a universal “pages directory”, so this package uses an **explicit route list**.
 
 ## Install
 
@@ -12,29 +10,27 @@ React apps (Vite/CRA/React Router) don’t have a universal “pages directory�
 npm install -D @llmtxt/react
 ```
 
----
+## Usage
 
-## 1) Create a route list
-
-Create `llmtxt.routes.ts`:
+Create a route list:
 
 ```ts
+// llmtxt.routes.ts
 import type { LlmtxtRoute } from '@llmtxt/react'
 
 export const routes: LlmtxtRoute[] = [
   { path: '/', title: 'Home', description: 'What this site is about.' },
-  { path: '/docs', title: 'Docs', description: 'Documentation index.' },
-  { path: '/pricing', title: 'Pricing' },
+  { path: '/docs', title: 'Docs' },
+
+  // Dynamic routes must be expanded into concrete paths:
+  // { path: '/blog/hello-world', title: 'Hello World' },
 ]
 ```
 
----
-
-## 2) Generate `public/llms.txt` and `public/llms-full.txt`
-
-Create `scripts/generate-llms.ts`:
+Generate files:
 
 ```ts
+// scripts/generate-llms.ts
 import path from 'path'
 import { writeLlmsFiles } from '@llmtxt/react'
 import { routes } from '../llmtxt.routes'
@@ -43,23 +39,20 @@ await writeLlmsFiles({
   routes,
   baseUrl: process.env.PUBLIC_SITE_URL!, // e.g. https://example.com
   outDir: path.join(process.cwd(), 'public'),
+  title: 'My App',
+  summary: 'My app documentation for AI models.',
 })
 ```
 
-Run it in CI after deploy (recommended) or against a preview server:
+## Why `llms-full.txt` may look empty in SPAs
 
-```bash
-PUBLIC_SITE_URL=https://example.com node scripts/generate-llms.ts
-```
+If your app is a **client-rendered SPA**, fetching `https://yoursite.com/pricing` usually returns the same `index.html` for every route (no page content). In that case, `llms-full.txt` can end up containing only the shell.
 
----
+To generate real content you need one of:
 
-## How it works
-
-- `llms.txt` is generated purely from your route list (titles + descriptions).
-- `llms-full.txt` fetches each route from `baseUrl` and converts the returned HTML into Markdown using a built-in dependency-free converter (you can override it).
-
----
+1) **SSR / Prerendered HTML** for each route (best), or
+2) Provide `route.markdown` per route (recommended for CMS-driven/dynamic pages), or
+3) Provide `fetchHtml` to render routes with a headless browser (Playwright/Puppeteer).
 
 ## API
 
@@ -69,13 +62,25 @@ Writes:
 - `llms.txt`
 - `llms-full.txt`
 
-### Options
+### Types
 
-| Option | Type | Required | Description |
-|---|---|---:|---|
-| `routes` | `LlmtxtRoute[]` | yes | Routes to include |
-| `baseUrl` | `string` | yes | Public base URL (no trailing slash) |
-| `outDir` | `string` | yes | Folder to write files (e.g. `public`) |
-| `fetchTimeoutMs` | `number` | no | Per-page fetch timeout |
-| `htmlToMarkdown` | `(html, url) => string \| Promise<string>` | no | Custom converter |
+```ts
+export type LlmtxtRoute = {
+  path: string
+  title: string
+  description?: string
+  markdown?: string
+}
+
+export type WriteLlmsFilesOptions = {
+  routes: LlmtxtRoute[]
+  baseUrl: string
+  outDir: string
+  title?: string
+  summary?: string
+  fetchTimeoutMs?: number
+  htmlToMarkdown?: (html: string, url: string) => Promise<string> | string
+  fetchHtml?: (url: string, timeoutMs: number) => Promise<string>
+}
+```
 

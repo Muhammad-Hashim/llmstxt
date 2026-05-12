@@ -5,6 +5,11 @@ export type LlmtxtRoute = {
   path: string;
   title: string;
   description?: string;
+  /**
+   * Optional precomputed Markdown for this route.
+   * If provided, `llms-full.txt` uses this instead of fetching HTML.
+   */
+  markdown?: string;
 };
 
 export type WriteLlmsFilesOptions = {
@@ -13,6 +18,13 @@ export type WriteLlmsFilesOptions = {
   outDir: string;
   fetchTimeoutMs?: number;
   htmlToMarkdown?: (html: string, url: string) => Promise<string> | string;
+  /**
+   * Optional fetcher for HTML. Use this to support SPAs/dynamic pages by
+   * rendering with a headless browser (Playwright/Puppeteer) instead of plain fetch.
+   */
+  fetchHtml?: (url: string, timeoutMs: number) => Promise<string>;
+  title?: string;
+  summary?: string;
 };
 
 function normalizeBaseUrl(baseUrl: string): string {
@@ -38,6 +50,15 @@ function stripHtmlToText(html: string): string {
     .replace(/[ \t]+\n/g, '\n')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
+}
+
+function looksLikeClientRenderedSpa(html: string, markdown: string): boolean {
+  const hasLikelyMount =
+    /<div[^>]+id=["']root["'][^>]*><\/div>/i.test(html) ||
+    /<div[^>]+id=["']app["'][^>]*><\/div>/i.test(html);
+  const hasScripts = /<script\b/i.test(html);
+  const words = markdown.trim().split(/\s+/).filter(Boolean);
+  return hasLikelyMount && hasScripts && words.length <= 6;
 }
 
 async function fetchWithTimeout(url: string, timeoutMs: number): Promise<string> {
@@ -98,6 +119,7 @@ export async function generateLlmsFullTxtFromRoutes(options: {
   baseUrl: string;
   fetchTimeoutMs?: number;
   htmlToMarkdown?: (html: string, url: string) => Promise<string> | string;
+  fetchHtml?: (url: string, timeoutMs: number) => Promise<string>;
 }): Promise<string> {
   const baseUrl = normalizeBaseUrl(options.baseUrl);
   const routes = [...options.routes].sort((a, b) => a.path.localeCompare(b.path));
@@ -118,12 +140,26 @@ export async function generateLlmsFullTxtFromRoutes(options: {
     lines.push(url);
     lines.push('');
     try {
-      const html = await fetchWithTimeout(url, fetchTimeoutMs);
-      const markdown =
-        typeof options.htmlToMarkdown === 'function'
-          ? await options.htmlToMarkdown(html, url)
-          : stripHtmlToText(html);
-      lines.push(markdown.trim());
+      if (route.markdown) {
+        lines.push(route.markdown.trim());
+      } else {
+        const html =
+          typeof options.fetchHtml === 'function'
+            ? await options.fetchHtml(url, fetchTimeoutMs)
+            : await fetchWithTimeout(url, fetchTimeoutMs);
+        const markdown =
+          typeof options.htmlToMarkdown === 'function'
+            ? await options.htmlToMarkdown(html, url)
+            : stripHtmlToText(html);
+        const trimmed = markdown.trim();
+        lines.push(trimmed);
+        if (looksLikeClientRenderedSpa(html, trimmed)) {
+          lines.push('');
+          lines.push(
+            '(Note: This route looks like a client-rendered SPA shell. For full content, provide `route.markdown`, prerender/SSR HTML, or pass `fetchHtml` to render with a headless browser.)'
+          );
+        }
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       lines.push(`(Failed to fetch or convert content: ${msg})`);
@@ -146,12 +182,15 @@ export async function writeLlmsFiles(options: WriteLlmsFilesOptions): Promise<{
   const llmsTxt = await generateLlmsTxtFromRoutes({
     routes: options.routes,
     baseUrl: options.baseUrl,
+    title: options.title,
+    summary: options.summary,
   });
   const llmsFullTxt = await generateLlmsFullTxtFromRoutes({
     routes: options.routes,
     baseUrl: options.baseUrl,
     fetchTimeoutMs: options.fetchTimeoutMs,
     htmlToMarkdown: options.htmlToMarkdown,
+    fetchHtml: options.fetchHtml,
   });
 
   const llmsTxtPath = path.join(outDir, 'llms.txt');
@@ -161,4 +200,3 @@ export async function writeLlmsFiles(options: WriteLlmsFilesOptions): Promise<{
 
   return { llmsTxtPath, llmsFullTxtPath };
 }
-
