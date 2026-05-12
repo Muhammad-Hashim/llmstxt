@@ -1,13 +1,13 @@
-# `@llmstxt/next`
+# `@llmtxt/next`
 
 Next.js App Router route handlers for `llms.txt` and `llms-full.txt` (see [llmstxt.org](https://llmstxt.org)).
 
-Also see [`@llmstxt/core`](https://www.npmjs.com/package/@llmstxt/core) (framework-agnostic generator) and [`@llmstxt/middleware`](https://www.npmjs.com/package/@llmstxt/middleware) (Markdown content negotiation).
+Also see [`@llmtxt/core`](https://www.npmjs.com/package/@llmtxt/core) (framework-agnostic generator) and [`@llmtxt/middleware`](https://www.npmjs.com/package/@llmtxt/middleware) (Markdown content negotiation).
 
 ## Install
 
 ```bash
-npm install @llmstxt/next
+npm install @llmtxt/next
 ```
 
 **Peer dependency**: `next >= 13.0.0`
@@ -46,7 +46,7 @@ For `llms.txt`:
 **`src/app/llms.txt/route.ts`**:
 
 ```ts
-export { GET } from '@llmstxt/next'
+export { GET } from '@llmtxt/next'
 ```
 
 For `llms-full.txt`:
@@ -54,7 +54,7 @@ For `llms-full.txt`:
 **`src/app/llms-full.txt/route.ts`**:
 
 ```ts
-import { createLlmsFullTxtHandler } from '@llmstxt/next'
+import { createLlmsFullTxtHandler } from '@llmtxt/next'
 export const GET = createLlmsFullTxtHandler()
 ```
 
@@ -65,7 +65,7 @@ Then visit `/llms.txt` and `/llms-full.txt`.
 **`src/app/llms.txt/route.ts`**:
 
 ```ts
-import { createLlmsTxtHandler } from '@llmstxt/next'
+import { createLlmsTxtHandler } from '@llmtxt/next'
 
 export const GET = createLlmsTxtHandler({
   title: 'My App',
@@ -78,7 +78,7 @@ export const GET = createLlmsTxtHandler({
 **`src/app/llms-full.txt/route.ts`**:
 
 ```ts
-import { createLlmsFullTxtHandler } from '@llmstxt/next'
+import { createLlmsFullTxtHandler } from '@llmtxt/next'
 
 export const GET = createLlmsFullTxtHandler({
   fetchTimeoutMs: 8000,
@@ -116,13 +116,13 @@ All options are optional. `appDir` and `baseUrl` are resolved automatically from
 
 Both handlers set `Cache-Control: public, max-age=0, s-maxage=3600, stale-while-revalidate=86400` by default, giving you CDN-level caching with fast revalidation.
 
-## With `@llmstxt/middleware` (optional)
+## With `@llmtxt/middleware` (optional)
 
 To serve any page as Markdown on `Accept: text/markdown`, add a middleware file:
 
 ```ts
 // middleware.ts (project root)
-export { middleware, config } from '@llmstxt/middleware'
+export { middleware, config } from '@llmtxt/middleware'
 ```
 
-See [`@llmstxt/middleware`](https://www.npmjs.com/package/@llmstxt/middleware) for full options.
+See [`@llmtxt/middleware`](https://www.npmjs.com/package/@llmtxt/middleware) for full options.

@@ -1,4 +1,4 @@
-import { createMarkdownMiddleware } from '@llmstxt/middleware';
+import { createMarkdownMiddleware } from '@llmtxt/middleware';
 
 /**
  * Markdown middleware for serving markdown versions of pages

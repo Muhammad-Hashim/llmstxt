@@ -2,7 +2,7 @@ import { Navigation, Card } from '@/components/widgets';
 
 export const metadata = {
     title: 'Blog | LLMsText',
-    description: 'Blog posts about llmstxt',
+    description: 'Blog posts about llmtxt',
 };
 
 export default function Blog() {
@@ -27,7 +27,7 @@ export default function Blog() {
                             </a>
                         </h2>
                         <p className="text-gray-600 mb-4">
-                            We're excited to announce llmstxt, a framework-agnostic solution for automatically generating
+                            We're excited to announce llmtxt, a framework-agnostic solution for automatically generating
                             AI-friendly documentation from your Next.js applications.
                         </p>
                         <div className="flex items-center justify-between">

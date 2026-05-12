@@ -1,0 +1,46 @@
+{
+  "name": "@llmtxt/react",
+  "version": "0.1.4",
+  "description": "Build-time helpers for React SPAs to generate llms.txt and llms-full.txt from an explicit route list.",
+  "license": "MIT",
+  "author": "Recordly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Muhammad-Hashim/llmstxt.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/Muhammad-Hashim/llmstxt#readme",
+  "keywords": [
+    "llmtxt",
+    "llms",
+    "llms.txt",
+    "llms-full.txt",
+    "react",
+    "spa",
+    "seo",
+    "ai",
+    "llm"
+  ],
+  "type": "commonjs",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "readme": "README.md",
+  "files": [
+    "lib/**/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "dependencies": {},
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "clean": "node ../../scripts/rmrf.js lib"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

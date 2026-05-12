@@ -2,7 +2,7 @@ import { Navigation, CodeBlock } from '@/components/widgets';
 
 export const metadata = {
     title: 'API Reference | LLMsText',
-    description: 'API reference for llmstxt packages',
+    description: 'API reference for llmtxt packages',
 };
 
 export default function APIReference() {
@@ -11,11 +11,11 @@ export default function APIReference() {
             <Navigation links={[{ href: '/', label: 'Home' }, { href: '/api-reference', label: 'API' }]} />
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <h1 className="text-4xl font-bold text-gray-900 mb-2">API Reference</h1>
-                <p className="text-xl text-gray-600 mb-12">Complete API documentation for all llmstxt packages</p>
+                <p className="text-xl text-gray-600 mb-12">Complete API documentation for all llmtxt packages</p>
 
                 <div className="space-y-12">
                     <section>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">@llmstxt/core</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">@llmtxt/core</h2>
                         <div className="space-y-6">
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">scanAppDirForPages(options)</h3>
@@ -56,7 +56,7 @@ export default function APIReference() {
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">@llmstxt/next</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">@llmtxt/next</h2>
                         <div className="space-y-6">
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">createLlmsTxtHandler()</h3>
@@ -64,7 +64,7 @@ export default function APIReference() {
                                     Creates a Next.js route handler for the /llms.txt endpoint.
                                 </p>
                                 <CodeBlock
-                                    code={`import { createLlmsTxtHandler } from '@llmstxt/next';
+                                    code={`import { createLlmsTxtHandler } from '@llmtxt/next';
 
 export const GET = createLlmsTxtHandler({
   title: 'My Documentation',
@@ -79,7 +79,7 @@ export const GET = createLlmsTxtHandler({
                                     Creates a Next.js route handler for the /llms-full.txt endpoint.
                                 </p>
                                 <CodeBlock
-                                    code={`import { createLlmsFullTxtHandler } from '@llmstxt/next';
+                                    code={`import { createLlmsFullTxtHandler } from '@llmtxt/next';
 
 export const GET = createLlmsFullTxtHandler();`}
                                 />
@@ -88,7 +88,7 @@ export const GET = createLlmsFullTxtHandler();`}
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">@llmstxt/middleware</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">@llmtxt/middleware</h2>
                         <div className="space-y-6">
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">createMarkdownMiddleware(options)</h3>
@@ -96,7 +96,7 @@ export const GET = createLlmsFullTxtHandler();`}
                                     Creates Next.js middleware that serves markdown for requests with Accept: text/markdown header.
                                 </p>
                                 <CodeBlock
-                                    code={`import { createMarkdownMiddleware } from '@llmstxt/middleware';
+                                    code={`import { createMarkdownMiddleware } from '@llmtxt/middleware';
 
 export const middleware = createMarkdownMiddleware({
   exclude: ['_next/*', 'api/*'],

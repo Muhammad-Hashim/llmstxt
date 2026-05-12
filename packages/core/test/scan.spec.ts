@@ -4,7 +4,7 @@ import path from 'path';
 import { scanAppDirForPages } from '../src';
 
 async function mkTmpDir(): Promise<string> {
-  return await fs.mkdtemp(path.join(os.tmpdir(), 'llmstxt-core-'));
+  return await fs.mkdtemp(path.join(os.tmpdir(), 'llmtxt-core-'));
 }
 
 async function writeFile(filePath: string, contents: string): Promise<void> {
@@ -12,7 +12,7 @@ async function writeFile(filePath: string, contents: string): Promise<void> {
   await fs.writeFile(filePath, contents, 'utf8');
 }
 
-describe('@llmstxt/core scanAppDirForPages', () => {
+describe('@llmtxt/core scanAppDirForPages', () => {
   it('scans Next.js app pages and extracts descriptions', async () => {
     const dir = await mkTmpDir();
     const appDir = path.join(dir, 'src', 'app');

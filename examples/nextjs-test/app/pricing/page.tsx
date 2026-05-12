@@ -2,7 +2,7 @@ import { Navigation, PricingPlan } from '@/components/widgets';
 
 export const metadata = {
     title: 'Pricing | LLMsText',
-    description: 'Pricing plans for llmstxt',
+    description: 'Pricing plans for llmtxt',
 };
 
 export default function Pricing() {

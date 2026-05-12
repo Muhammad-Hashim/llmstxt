@@ -1,10 +1,10 @@
 # LLMsText Next.js Example Application
 
-This example demonstrates all features of the @llmstxt packages including:
+This example demonstrates all features of the @llmtxt packages including:
 
-- `@llmstxt/core` for scanning and generating documentation
-- `@llmstxt/next` for Next.js route handlers
-- `@llmstxt/middleware` for markdown content negotiation
+- `@llmtxt/core` for scanning and generating documentation
+- `@llmtxt/next` for Next.js route handlers
+- `@llmtxt/middleware` for markdown content negotiation
 
 ## Features Demonstrated
 
@@ -28,7 +28,7 @@ npm run build
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-> For local development, put this in `.env.local` so Next.js and `@llmstxt/next` can resolve your public site URL.
+> For local development, put this in `.env.local` so Next.js and `@llmtxt/next` can resolve your public site URL.
 
 1. Run the development server:
 

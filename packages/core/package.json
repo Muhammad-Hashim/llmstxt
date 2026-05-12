@@ -1,6 +1,6 @@
 {
-  "name": "@llmstxt/core",
-  "version": "0.1.0",
+  "name": "@llmtxt/core",
+  "version": "0.1.1",
   "description": "Framework-agnostic scanner & generator for llms.txt and llms-full.txt.",
   "license": "MIT",
   "author": "Recordly",
@@ -14,7 +14,7 @@
     "llms",
     "llms.txt",
     "llms-full.txt",
-    "llmstxt",
+    "llmtxt",
     "ai",
     "llm",
     "seo",

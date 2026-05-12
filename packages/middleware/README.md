@@ -1,15 +1,15 @@
-# `@llmstxt/middleware`
+# `@llmtxt/middleware`
 
 Next.js middleware that serves **any page as Markdown** when the request includes `Accept: text/markdown`.
 
 This implements the "Markdown for Agents" content-negotiation pattern: AI agents and LLMs can request a clean Markdown version of any page by sending `Accept: text/markdown`, while browsers continue to receive HTML normally.
 
-Also see [`@llmstxt/next`](https://www.npmjs.com/package/@llmstxt/next) for `llms.txt` and `llms-full.txt` route handlers.
+Also see [`@llmtxt/next`](https://www.npmjs.com/package/@llmtxt/next) for `llms.txt` and `llms-full.txt` route handlers.
 
 ## Install
 
 ```bash
-npm install @llmstxt/middleware
+npm install @llmtxt/middleware
 ```
 
 **Peer dependency**: `next >= 13.0.0`
@@ -18,7 +18,7 @@ npm install @llmstxt/middleware
 
 ```ts
 // middleware.ts (project root)
-export { middleware, config } from '@llmstxt/middleware'
+export { middleware, config } from '@llmtxt/middleware'
 ```
 
 Test it:
@@ -52,7 +52,7 @@ generated: "2026-01-01T00:00:00.000Z"
 
 ```ts
 // middleware.ts (project root)
-import { createMarkdownMiddleware } from '@llmstxt/middleware'
+import { createMarkdownMiddleware } from '@llmtxt/middleware'
 
 export const middleware = createMarkdownMiddleware({
   contentSignal: 'ai-train=no, search=yes, ai-input=yes',
@@ -95,7 +95,7 @@ npm install turndown @mozilla/readability jsdom
 ```
 
 ```ts
-import { createMarkdownMiddleware } from '@llmstxt/middleware'
+import { createMarkdownMiddleware } from '@llmtxt/middleware'
 import TurndownService from 'turndown'
 import { Readability } from '@mozilla/readability'
 import { JSDOM } from 'jsdom'

@@ -2,8 +2,8 @@
 
 This folder contains two example projects for local testing of the monorepo packages:
 
-- `basic-test` — a simple TypeScript script that imports `@llmstxt/core` and generates `llms.txt` locally.
-- `next-app-test` — a minimal Next.js App Router project that consumes `@llmstxt/next` and exposes `/llms.txt` and `/llms-full.txt`.
+- `basic-test` — a simple TypeScript script that imports `@llmtxt/core` and generates `llms.txt` locally.
+- `next-app-test` — a minimal Next.js App Router project that consumes `@llmtxt/next` and exposes `/llms.txt` and `/llms-full.txt`.
 
 ## Getting started
 
