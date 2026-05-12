@@ -1,6 +1,6 @@
 {
   "name": "@llmtxt/react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Build-time helpers for React SPAs to generate llms.txt and llms-full.txt from an explicit route list.",
   "license": "MIT",
   "author": "Recordly",

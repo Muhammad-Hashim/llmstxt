@@ -44,6 +44,33 @@ await writeLlmsFiles({
 })
 ```
 
+## Optional: auto-scan `src/pages` (convention-based)
+
+If your React app follows a simple `src/pages/**` convention, you can generate the route list automatically:
+
+```ts
+import path from 'path'
+import { scanPagesDirForRoutes, writeLlmsFiles } from '@llmtxt/react'
+
+const routes = await scanPagesDirForRoutes({
+  pagesDir: path.join(process.cwd(), 'src/pages'),
+  skipDynamic: true,
+})
+
+await writeLlmsFiles({
+  routes,
+  baseUrl: process.env.PUBLIC_SITE_URL!,
+  outDir: path.join(process.cwd(), 'public'),
+})
+```
+
+Mapping rules:
+- `src/pages/index.tsx` → `/`
+- `src/pages/About.tsx` → `/about`
+- `src/pages/docs/GettingStarted.tsx` → `/docs/getting-started`
+
+Dynamic files like `src/pages/blog/[slug].tsx` are skipped by default.
+
 ## Why `llms-full.txt` may look empty in SPAs
 
 If your app is a **client-rendered SPA**, fetching `https://yoursite.com/pricing` usually returns the same `index.html` for every route (no page content). In that case, `llms-full.txt` can end up containing only the shell.
@@ -83,4 +110,3 @@ export type WriteLlmsFilesOptions = {
   fetchHtml?: (url: string, timeoutMs: number) => Promise<string>
 }
 ```
-

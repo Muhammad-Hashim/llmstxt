@@ -1,5 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
+export { scanPagesDirForRoutes } from './scan';
+export type { ScanPagesDirOptions } from './scan';
 
 export type LlmtxtRoute = {
   path: string;
