@@ -12,8 +12,7 @@ Generate `llms.txt` (table of contents) and `llms-full.txt` (full content) from 
 | [`@llmtxt/core`](./packages/core) | Scan your `app/` directory and generate `llms.txt` + `llms-full.txt` |
 | [`@llmtxt/next`](./packages/next) | Next.js App Router route handlers for `/llms.txt` and `/llms-full.txt` |
 | [`@llmtxt/middleware`](./packages/middleware) | Next.js middleware: any page responds as Markdown on `Accept: text/markdown` |
-| [`@llmtxt/react`](./packages/react)  (It’s not working right now. It’s still in the testing phase.
-) | Build-time helpers for React SPAs: generate `llms.txt` + `llms-full.txt` from a route list |
+| [`@llmtxt/react`](./packages/react)|(It’s not working right now. It’s still in the testing phase.)   Build-time helpers for React SPAs: generate `llms.txt` + `llms-full.txt` from a route list |
 
 ## Keywords (SEO)
 
